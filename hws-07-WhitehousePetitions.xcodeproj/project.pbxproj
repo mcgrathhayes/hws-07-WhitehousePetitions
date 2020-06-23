@@ -13,6 +13,9 @@
 		C574A66424A179B20029164A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C574A66224A179B20029164A /* Main.storyboard */; };
 		C574A66624A179B30029164A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C574A66524A179B30029164A /* Assets.xcassets */; };
 		C574A66924A179B30029164A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C574A66724A179B30029164A /* LaunchScreen.storyboard */; };
+		C574A67124A19DAC0029164A /* Petition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C574A67024A19DAC0029164A /* Petition.swift */; };
+		C574A67324A19E930029164A /* Petitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C574A67224A19E930029164A /* Petitions.swift */; };
+		C574A67524A1A3330029164A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C574A67424A1A3330029164A /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		C574A66524A179B30029164A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C574A66824A179B30029164A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C574A66A24A179B30029164A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C574A67024A19DAC0029164A /* Petition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Petition.swift; sourceTree = "<group>"; };
+		C574A67224A19E930029164A /* Petitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Petitions.swift; sourceTree = "<group>"; };
+		C574A67424A1A3330029164A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +64,32 @@
 			children = (
 				C574A65C24A179B20029164A /* AppDelegate.swift */,
 				C574A65E24A179B20029164A /* SceneDelegate.swift */,
-				C574A66024A179B20029164A /* ViewController.swift */,
+				C574A67624A1A3430029164A /* Controllers */,
+				C574A67724A1A34E0029164A /* Models */,
 				C574A66224A179B20029164A /* Main.storyboard */,
 				C574A66524A179B30029164A /* Assets.xcassets */,
 				C574A66724A179B30029164A /* LaunchScreen.storyboard */,
 				C574A66A24A179B30029164A /* Info.plist */,
 			);
 			path = "hws-07-WhitehousePetitions";
+			sourceTree = "<group>";
+		};
+		C574A67624A1A3430029164A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C574A66024A179B20029164A /* ViewController.swift */,
+				C574A67424A1A3330029164A /* DetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C574A67724A1A34E0029164A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C574A67024A19DAC0029164A /* Petition.swift */,
+				C574A67224A19E930029164A /* Petitions.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +164,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C574A66124A179B20029164A /* ViewController.swift in Sources */,
+				C574A67124A19DAC0029164A /* Petition.swift in Sources */,
 				C574A65D24A179B20029164A /* AppDelegate.swift in Sources */,
+				C574A67524A1A3330029164A /* DetailViewController.swift in Sources */,
 				C574A65F24A179B20029164A /* SceneDelegate.swift in Sources */,
+				C574A67324A19E930029164A /* Petitions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
