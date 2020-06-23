@@ -30,6 +30,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        
+        /* add a second view controller to the tab bar:
+         1. reate a duplicate ViewController wrapped inside a navigation controller,
+         2. give it a new tab bar item to distinguish it from the existing tab,
+         3. add it to the list of visible tabs.
+         This uses the same class for both tabs without having a duplicate view controller in the storyboard.
+         */
+        
+        // root view controller is embedded in a navigation controller which is embedded in a tab bar controller
+        if let tabBarController = window?.rootViewController as? UITabBarController {
+            
+            // get a reference to the main storyboard file. bundle: nil implies current app bundle
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            // create the new view controller and pass in the storyboard id of the navigation controller
+            let vc = storyboard.instantiateViewController(withIdentifier: "NavController")
+            
+            // create a tab bar item for the new view controller with a "Top Rated" icon and a tag
+            vc.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 1)
+            
+            // add new view controller to tab bar controller vc array so it appears in the tab bar
+            tabBarController.viewControllers?.append(vc)
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {

@@ -14,11 +14,20 @@ class ViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let urlString: String
 
         // access We the People petitions from whitehouse.gov
-        let urlString = "https://api.whitehouse.gov/v1/petitions.json?limit=100"
+        if navigationController?.tabBarItem.tag == 0 {
+            // get the first 100 petitions
+            urlString = "https://api.whitehouse.gov/v1/petitions.json?limit=100"
+        }
+        else {
+            // get the first 100 petitions which have at least 10,000 signatures
+            urlString = "https://api.whitehouse.gov/v1/petitions.json?signatureCountFloor=10000&limit=100"
+        }
         
-        // this will run on the main thread and lock the UI until data is loaded
+        // download petition data. this will run on the main thread and lock the UI until data is loaded
         if let url = URL(string: urlString) {
             if let data = try? Data(contentsOf: url) {
                 parse(json: data)
