@@ -11,11 +11,17 @@ import UIKit
 class ViewController: UITableViewController {
     
     var petitions = [Petition]()
+    
+    var filteredPetitions = [Petition]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let urlString: String
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Data Source", style: .plain, target: self, action: #selector(showCredits))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(promptForFilter))
 
         // access We the People petitions from whitehouse.gov
         if navigationController?.tabBarItem.tag == 0 {
@@ -38,12 +44,12 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return petitions.count
+        return filteredPetitions.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let petition = petitions[indexPath.row]
+        let petition = filteredPetitions[indexPath.row]
         cell.textLabel?.text = petition.title
         cell.detailTextLabel?.text = petition.body
         return cell
@@ -51,7 +57,7 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DetailViewController()
-        vc.detailItem = petitions[indexPath.row]
+        vc.detailItem = filteredPetitions[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -60,6 +66,7 @@ class ViewController: UITableViewController {
         
         if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {
             petitions = jsonPetitions.results
+            filteredPetitions = petitions
             tableView.reloadData()
         }
     }
@@ -69,7 +76,41 @@ class ViewController: UITableViewController {
         ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(ac, animated: true)
     }
-
-
+    
+    @objc func showCredits() {
+        let ac = UIAlertController(title: "Data Source", message: "We the People \n petitions are downloaded from petitions.whitehouse.gov", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+        present(ac, animated: true)
+    }
+    
+    @objc func promptForFilter() {
+        let ac = UIAlertController(title: "Filter", message: "Enter a string to filter, blank to clear filter", preferredStyle: .alert)
+        ac.addTextField()
+        
+        let submitFilter = UIAlertAction(title: "Filter", style: .default) {
+            [weak self, weak ac] _ in
+            guard let filter = ac?.textFields?[0].text else { return }
+            self?.filteredPetitions.removeAll(keepingCapacity: true)
+            self?.filter(filter)
+            }
+        
+        ac.addAction(submitFilter)
+        present(ac, animated: true)
+    }
+    
+    func filter(_ filter: String) {
+        let lowerFilter = filter.lowercased()
+        
+        for petition in petitions {
+            let lowerPetitionTitle = petition.title.lowercased()
+            let lowerPetitionBody = petition.body.lowercased()
+            
+            if lowerPetitionTitle.contains(lowerFilter) || lowerPetitionBody.contains(lowerFilter) {
+                filteredPetitions.append(petition)
+            }
+        }
+        
+        tableView.reloadData()
+    }
 }
 
